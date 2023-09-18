@@ -21,7 +21,7 @@ def addcontact(request):
         else:
          Name=request.POST['name']
          Phoneno=request.POST['mobno']
-         contactlist=Contact(Name=Name,phoneno=Phoneno)
+         contactlist=Contact(Name=Name,phoneno=Phoneno)  #create an object
          contactlist.save()
          return render(request,"home.html",{"msg":"contact added"})
    except Exception as e:
@@ -73,8 +73,8 @@ def search(request):
 #    except Exception as e:
 #       print(e)
 #       return render(request,"home.html",{'msg1':"not updated"})
-# 
-# 
+
+
 @login_required
 def updatecontact(request):
  
@@ -86,6 +86,7 @@ def updatecontact(request):
          for i in contactList:
             if newname in i.Name:
 	                return render(request,"home.html",{"msg1":"contact not exists"})
+             
             # elif newname in i.Name:
             #   contactList.update(Name=newname)
             #   return render(request,"home.html",{'msg1':"updated"})
@@ -96,15 +97,15 @@ def updatecontact(request):
 def updatecontactno(request):
  
  
-  oldname=request.POST['oldname']
-  Newno=request.POST['newno']
-  contactList=Contact.objects.filter(Name=oldname)
-  if contactList.exists():
+    oldname=request.POST['oldname']
+    Newno=request.POST['newno']
+    contactList=Contact.objects.filter(Name=oldname)
+    if contactList.exists():
        contactList.update(phoneno=Newno)
        return render(request,"home.html",{'msg4':"updated"})
    
-  else:
-     return render(request,"home.html",{"msg4":"there is no such contact"})  
+    else:
+        return render(request,"home.html",{"msg4":"there is no such contact"})  
 	      
        
     #  elif oldname!=i.Name:
